@@ -125,3 +125,26 @@ echo "validate('42'): '" . validate('42') . "'<br>";
 echo "validate('123abc'): '" . validate('123abc') . "'<br>";
 echo "validate('abc'): '" . validate('abc') . "'<br>";
 echo "validate('12.5'): '" . validate('12.5') . "'<br>";
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
+echo "<br>";
+  function getColorsValue(array $colors): int
+    {
+        $colorslist= [
+        'black',
+        'brown',
+        'red',
+        'orange',
+        'yellow',
+        'green',
+        'blue',
+        'violet',
+        'grey',
+        'white'
+    ];
+        // $nameParts = explode('-', $colors);
+        
+        return array_search($colors[0], $colorslist) * 10 + array_search($colors[1], $colorslist);
+    }
+    $result = getColorsValue(['white',  'red']);
+    echo "Color Value: " . $result;
