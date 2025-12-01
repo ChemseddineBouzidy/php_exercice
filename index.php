@@ -17,9 +17,9 @@ echo $HighSchoolSweetheart->pair("Blake Miller", "Riley Lewis"); // Expected out
 echo "----------------------------------------------------------------------------------------";
 echo "<br>";
 $PizzaPi = new PizzaPi();
-echo $PizzaPi->calculateDoughRequirement(4,8); // Expected output: "1000"
+echo $PizzaPi->calculateDoughRequirement(4, 8); // Expected output: "1000"
 echo "<br>";
-echo $PizzaPi->calculateSauceRequirement(8,250); // Expected output: "4"
+echo $PizzaPi->calculateSauceRequirement(8, 250); // Expected output: "4"
 echo "<br>";
 echo $PizzaPi->calculateCheeseCubeCoverage(25, 0.5, 30);
 echo "<br>";
@@ -51,25 +51,77 @@ echo "<br>";
 function language_list(...$items)
 {
     // implement the language list function
-    return $items ;
+    return $items;
 }
-function add_to_language_list($language_list,$new_language){
-    $language_list[] =$new_language;
-        return $language_list;
+function add_to_language_list($language_list, $new_language)
+{
+    $language_list[] = $new_language;
+    return $language_list;
 }
-function prune_language_list($language_list){
+function prune_language_list($language_list)
+{
 
     array_shift($language_list);
     return $language_list;
 }
-function current_language($language_list){
+function current_language($language_list)
+{
     // return $language_list[0];
     // return current($language_list);
 
 
     return reset($language_list);
 }
-function language_list_length($language_list){
-    return  count($language_list);
+function language_list_length($language_list)
+{
+    return count($language_list);
 
 }
+function isPalindrome(int $number): bool
+{
+
+    return $number == strrev($number);
+}
+$result = isPalindrome(1441);
+echo "Is 1441 a palindrome? " . ($result ? "Yes" : "No");
+echo "<br>";
+//   function validate(string $input): string
+//     {
+//         if (gettype($input) == 'string' ) {
+//             return 'Must be a whole number larger than 0 =>    '. gettype($input);
+//         }elseif (empty($input)){
+//             return 'Required field';
+
+//         }
+//         return ' '  . gettype($input);
+//     }
+//     $validationResult = validate('');
+//     echo "Validation Result: " . $validationResult;
+function validate(string $input): string
+{
+    // Check if empty or only whitespace
+    if (trim($input) === '') {
+        return 'Required field';
+    }
+    
+    // Cast to integer according to PHP type casting rules
+    $number = (int)$input;
+    
+    // Check if the result is a positive non-zero whole number
+    if ($number <= 0) {
+        return 'Must be a whole number larger than 0';
+    }
+    
+    return '';
+}
+
+// Test cases
+echo "<br>--- Validation Tests ---<br>";
+echo "validate(''): '" . validate('') . "'<br>";
+echo "validate('   '): '" . validate('   ') . "'<br>";
+echo "validate('0'): '" . validate('0') . "'<br>";
+echo "validate('-5'): '" . validate('-5') . "'<br>";
+echo "validate('42'): '" . validate('42') . "'<br>";
+echo "validate('123abc'): '" . validate('123abc') . "'<br>";
+echo "validate('abc'): '" . validate('abc') . "'<br>";
+echo "validate('12.5'): '" . validate('12.5') . "'<br>";
