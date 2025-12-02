@@ -166,3 +166,18 @@ $birthDate = new DateTimeImmutable('2015-01-24 22:00:00');
 $gsDate = from($birthDate);
 echo $gsDate->format('Y-m-d H:i:s');
 // Affiche : 2046-10-02 23:46:40
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
+echo "<br>";
+require_once 'src/Tournament/Tournament.php';
+$tournament = new Tournament();
+
+$results = [
+    'Allegoric Alaskans;Blithering Badgers;win',
+    'Devastating Donkeys;Courageous Californians;draw'
+];
+
+$teams = $tournament->tally(implode("\n", $results));
+echo $teams; // Affiche un tableau avec les noms d'équipes uniques
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
