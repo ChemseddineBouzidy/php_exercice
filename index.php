@@ -158,3 +158,11 @@ foreach ($lines as $line) {
     echo $line . "\n";
     echo "<br>";
 }
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
+echo "<br>";
+require_once 'src/DateTimeImmutable/DateTimeImmutable.php';
+$birthDate = new DateTimeImmutable('2015-01-24 22:00:00');
+$gsDate = from($birthDate);
+echo $gsDate->format('Y-m-d H:i:s');
+// Affiche : 2046-10-02 23:46:40
