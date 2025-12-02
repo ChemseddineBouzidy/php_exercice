@@ -48,7 +48,7 @@ class Robot
         if ($index !== false) {
             unset(self::$usedNames[$index]);
             // Réindexer le tableau pour éviter les trous
-            // self::$usedNames = array_values(self::$usedNames);
+            self::$usedNames = array_values(self::$usedNames);
         }
         $this->name = null;
       }

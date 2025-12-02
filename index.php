@@ -204,3 +204,97 @@ $robot->reset();
 echo "Robot Name after reset: " . $robot->getName(); // Expected output: e.g., "CD456"
 echo "<br>";
 echo "----------------------------------------------------------------------------------------";
+
+
+
+// Book Store
+
+
+/*
+ * By adding type hints and enabling strict type checking, code can become
+ * easier to read, self-documenting and reduce the number of potential bugs.
+ * By default, type declarations are non-strict, which means they will attempt
+ * to change the original type to match the type specified by the
+ * type-declaration.
+ *
+ * In other words, if you pass a string to a function requiring a float,
+ * it will attempt to convert the string value to a float.
+ *
+ * To enable strict mode, a single declare directive must be placed at the top
+ * of the file.
+ * This means that the strictness of typing is configured on a per-file basis.
+ * This directive not only affects the type declarations of parameters, but also
+ * a function's return type.
+ *
+ * For more info review the Concept on strict type checking in the PHP track
+ * <link>.
+ *
+ * To disable strict typing, comment out the directive below.
+ */
+
+// declare(strict_types=1);
+
+/**
+ * Note: we expect the total in cents (1$ = 100 cents).
+ */
+function total(array $items): int
+{
+    if (empty($items)) {
+        return 0;
+    }
+
+    $bookprice = 800; // Prix d'un livre en cents
+    
+    // Compter les occurrences de chaque livre
+    $bookCounts = array_count_values($items);
+    
+    // Créer un tableau avec le nombre de chaque livre
+    $counts = array_values($bookCounts);
+    rsort($counts); // Trier par ordre décroissant
+    
+    // Compter combien de sets de chaque taille on peut faire
+    $groups = [0, 0, 0, 0, 0, 0]; // Index 0 non utilisé, 1-5 pour les groupes
+    
+    while (array_sum($counts) > 0) {
+        // Compter combien de livres différents on peut mettre dans ce set
+        $distinctBooks = 0;
+        foreach ($counts as $count) {
+            if ($count > 0) {
+                $distinctBooks++;
+            }
+        }
+        
+        // Ajouter un groupe de cette taille
+        $groups[$distinctBooks]++;
+        
+        // Réduire les compteurs
+        for ($i = 0; $i < $distinctBooks; $i++) {
+            $counts[$i]--;
+        }
+    }
+    
+    // Optimisation: convertir les groupes de 5 et 3 en groupes de 4 et 4
+    // Car 2*4 livres avec 20% de réduction = 2 * 800 * 4 * 0.8 = 5120
+    // Alors que 5 livres (25%) + 3 livres (10%) = 800*5*0.75 + 800*3*0.9 = 3000 + 2160 = 5160
+    while ($groups[5] > 0 && $groups[3] > 0) {
+        $groups[5]--;
+        $groups[3]--;
+        $groups[4] += 2;
+    }
+    
+    // Calculer le prix total
+    $total = 0;
+    $discounts = [0 => 0, 1 => 0, 2 => 0.05, 3 => 0.10, 4 => 0.20, 5 => 0.25];
+    
+    for ($size = 1; $size <= 5; $size++) {
+        if ($groups[$size] > 0) {
+            $setPrice = $size * $bookprice * (1 - $discounts[$size]);
+            $total += $groups[$size] * (int)round($setPrice);
+        }
+    }
+    
+    return $total;
+}
+
+$result = total([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]);
+echo "Total Price: " . $result . " cents"; // Expected output: Total Price
