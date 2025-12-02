@@ -4,6 +4,7 @@ require_once 'src/PizzaPi/PizzaPi.php';
 require_once 'src/ProgramWindow/ProgramWindow.php';
 require_once 'src/ProgramWindow/Size.php';
 require_once 'src/ProgramWindow/Position.php';
+require_once 'src/Proverb/Proverb.php';
 
 $HighSchoolSweetheart = new HighSchoolSweetheart();
 echo "<br>";
@@ -148,3 +149,12 @@ echo "<br>";
     }
     $result = getColorsValue(['white',  'red']);
     echo "Color Value: " . $result;
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
+echo "<br>";
+$proverb = new Proverb();
+$lines = $proverb->recite(['nail', 'shoe', 'horse', 'rider', 'message', 'battle', 'kingdom']);
+foreach ($lines as $line) {
+    echo $line . "\n";
+    echo "<br>";
+}
