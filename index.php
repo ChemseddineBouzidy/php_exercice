@@ -181,3 +181,26 @@ $teams = $tournament->tally(implode("\n", $results));
 echo $teams; // Affiche un tableau avec les noms d'équipes uniques
 echo "<br>";
 echo "----------------------------------------------------------------------------------------";
+echo "<br>";
+require_once 'src/SimpleCipher/SimpleCipher.php';
+$simpleCipher = new SimpleCipher();
+echo $simpleCipher->encode('aaaaa'); // Expected output: "abcdefghij"
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
+echo "<br>";
+require_once 'src/HighScores/HighScores.php';
+$highScores = new HighScores([30, 50, 20, 70]);
+print_r($highScores);
+echo "<br>";
+echo "Latest Score: " . $highScores->latest; // Expected output:
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
+echo "<br>";
+require_once 'src/Robot/Robot.php';
+$robot = new Robot();
+echo "Robot Name: " . $robot->getName(); // Expected output: e.g., "AB123"
+echo "<br>";
+$robot->reset();
+echo "Robot Name after reset: " . $robot->getName(); // Expected output: e.g., "CD456"
+echo "<br>";
+echo "----------------------------------------------------------------------------------------";
